@@ -19,13 +19,21 @@ public class CategoryController {
     public List<Category> getAll(){
         return categoryService.getAll();
     }
+    @GetMapping("/{id}")
+    public Optional<Category> getById(@PathVariable("id") int idCat){
+        return categoryService.getById(idCat);
+    }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Category save(@RequestBody Category c){
         return categoryService.save(c);
     }
-    @GetMapping("/{id}")
-    public Optional<Category> getById(@PathVariable("id") int idCat){
-        return categoryService.getById(idCat);
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public  Category update(@RequestBody Category c){ return categoryService.update(c);}
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") int id){
+        return categoryService.delete(id);
     }
+
 }

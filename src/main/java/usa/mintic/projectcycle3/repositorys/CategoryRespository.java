@@ -9,21 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-
 public class CategoryRespository {
-
     @Autowired
     private CategoryCrudRespository categoryCrudRespository;
 
     public List<Category> getAll(){
         return (List<Category>) categoryCrudRespository.findAll();
     }
-    public Category save(Category c){
-        return categoryCrudRespository.save(c);
-    }
-    public Optional<Category> getById( int idCat){
-        return categoryCrudRespository.findById(idCat);
-    }
-
-
+    public Optional<Category> getById(int id){ return categoryCrudRespository.findById(id); }
+    public Category save(Category c){ return categoryCrudRespository.save(c); }
+    public void delete(Category c){ categoryCrudRespository.delete(c); }
 }

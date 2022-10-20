@@ -19,28 +19,20 @@ public class ReservationController {
     public List<Reservation> getAll(){
         return reservationService.getAll();
     }
+    @GetMapping("/{id}")
+    public Optional<Reservation> getById(@PathVariable("id") int idCat){
+        return reservationService.getById(idCat);
+    }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation save(@RequestBody Reservation r){
-        return reservationService.save(r);
-    }
-    @GetMapping("/{id}")
-    public Optional<Reservation> getById(@PathVariable("id") int idReservation){
-        return reservationService.getById(idReservation);
-    }
-
-
-    /*@GetMapping("/cat/{idCat}")
-    public List<Reservation> getByCatId(@PathVariable("idCat") int idCategory){
-        return reservationService.getByCat(idCategory);
-    }
-    @GetMapping("/desc/{desc}/{cap}")
-    public List<Reservation> getByDesc(@PathVariable("cap") int cap, @PathVariable("desc") String descp){
-        return reservationService.getByDescAndCap(descp,cap);
+    public Reservation save(@RequestBody Reservation c){
+        return reservationService.save(c);
     }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation update(@RequestBody Reservation a){
-        return reservationService.update(a);
-    }*/
+    public  Reservation update(@RequestBody Reservation c){ return reservationService.update(c);}
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") int id){
+        return reservationService.delete(id);
+    }
 }

@@ -1,0 +1,17 @@
+.wLabel{ width: 110px; background: white; }
+.vertical-center{
+    display: flex;
+    align-items: center;
+}
+.hide{
+    display: none;
+}
+.left-center{
+    position: absolute;
+    font-size: 1em;
+    color: #00C853;
+    z-index: 10;
+    top: .7em;
+    right: .5em;
+    cursor: pointer;
+}

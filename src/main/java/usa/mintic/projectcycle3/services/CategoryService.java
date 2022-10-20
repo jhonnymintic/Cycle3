@@ -14,16 +14,31 @@ public class CategoryService {
     @Autowired
     private CategoryRespository categoryRespository;
 
-    public Category save(Category c){
-        return categoryRespository.save(c);
-    }
-
     public List<Category> getAll(){
         return categoryRespository.getAll();
     }
-
-    public Optional<Category> getById(int i){
-        return categoryRespository.getById(i);
+    public Optional<Category> getById(int id){
+        return categoryRespository.getById(id);
     }
-
+    public Category save(Category c){
+        if(c.getId()==null){ return categoryRespository.save(c); }
+        return c;
+    }
+    public boolean delete(int id){
+        Optional<Category> cOp=categoryRespository.getById(id);
+        if(cOp.isPresent()){ categoryRespository.delete(cOp.get()); return true; }
+        return false;
+    }
+    public Category update(Category c){
+        if(c.getId()!=null){
+            Optional<Category> old=categoryRespository.getById(c.getId());
+            if(old.isPresent()){
+                Category k= old.get();
+                if(c.getName()!=null){ k.setName(c.getName()); }
+                if(c.getDescription()!=null){ k.setDescription(c.getDescription()); }
+                return categoryRespository.save(k);
+            }
+        }
+        return c;
+    }
 }

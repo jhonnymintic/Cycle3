@@ -10,58 +10,37 @@ import java.util.Optional;
 
 @Service
 public class ClientService {
+
     @Autowired
     private ClientRepository clientRepository;
 
     public List<Client> getAll(){
         return clientRepository.getAll();
     }
-
+    public Optional<Client> getById(int id){
+        return clientRepository.getById(id);
+    }
     public Client save(Client c){
-        if(c.getIdClient()==null){
-            return clientRepository.save(c);
-        }else{
-            Optional<Client> pa=clientRepository.getById(c.getIdClient());
-            if(!pa.isPresent()){
-                return clientRepository.save(c);
+        if(c.getIdClient()==null){ return clientRepository.save(c); }
+        return c;
+    }
+    public boolean delete(int id){
+        Optional<Client> cOp=clientRepository.getById(id);
+        if(cOp.isPresent()){ clientRepository.delete(cOp.get()); return true; }
+        return false;
+    }
+    public Client update(Client c){
+        if(c.getIdClient()!=null){
+            Optional<Client> old=clientRepository.getById(c.getIdClient());
+            if(old.isPresent()){
+                Client k= old.get();
+                if(c.getEmail()!=null){ k.setEmail(c.getEmail()); }
+                if(c.getPassword()!=null){ k.setPassword(c.getPassword()); }
+                if(c.getName()!=null){ k.setName(c.getName()); }
+                if(c.getAge()!=null){ k.setAge(c.getAge()); }
+                return clientRepository.save(k);
             }
         }
         return c;
     }
-
-    public Optional<Client> getById(int id){ return clientRepository.getById(id); }
-
-
-    /*
-    public List<Client> getByCat(int id){
-        return clientRepository.getByCategoryId(id);
-    }
-    public List<Client>getByDescAndCap(String d,int c){
-        return clientRepository.getByDesc(d, c);
-    }
-    public Client update(Client a){
-        if(a.getId()!=null){
-            Optional<Client> pa=clientRepository.getById(a.getId());
-            if(pa.isPresent()){
-                Client result=pa.get();
-                if(a.getCapacity()!=null){
-                    result.setCapacity(a.getCapacity());
-                }
-                if(a.getCategory()!=null){
-                    result.setCategory(a.getCategory());
-                }
-                if(a.getDescription()!=null){
-                    result.setDescription(a.getDescription());
-                }
-                if(a.getName()!=null){
-                    result.setName(a.getName());
-                }
-                if(a.getOwner()!=null){
-                    result.setOwner(a.getOwner());
-                }
-                return clientRepository.save(result);
-            }
-        }
-        return a;
-    }*/
 }

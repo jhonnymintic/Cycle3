@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Audience")
+
 public class AudienceController {
     @Autowired
     private AudienceService audienceService;
@@ -19,26 +20,20 @@ public class AudienceController {
     public List<Audience> getAll(){
         return audienceService.getAll();
     }
+    @GetMapping("/{id}")
+    public Optional<Audience> getById(@PathVariable("id") int idCat){
+        return audienceService.getById(idCat);
+    }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Audience save(@RequestBody Audience c){
         return audienceService.save(c);
     }
-    @GetMapping("/{id}")
-    public Optional<Audience> getById(@PathVariable("id") int idAudience){
-        return audienceService.getById(idAudience);
-    }
-    @GetMapping("/cat/{idCat}")
-    public List<Audience> getByCatId(@PathVariable("idCat") int idCategory){
-        return audienceService.getByCat(idCategory);
-    }
-    @GetMapping("/desc/{desc}/{cap}")
-    public List<Audience> getByDesc(@PathVariable("cap") int cap, @PathVariable("desc") String descp){
-        return audienceService.getByDescAndCap(descp,cap);
-    }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Audience update(@RequestBody Audience a){
-        return audienceService.update(a);
+    public  Audience update(@RequestBody Audience c){ return audienceService.update(c);}
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") int id){
+        return audienceService.delete(id);
     }
 }

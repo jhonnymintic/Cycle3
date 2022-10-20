@@ -16,17 +16,9 @@ public class AudienceRepository {
     public List<Audience> getAll(){
         return (List<Audience>) audienceCRUDRepository.findAll();
     }
-    public Audience save(Audience c){
-        return audienceCRUDRepository.save(c);
+    public Optional<Audience> getById(int id){
+        return  audienceCRUDRepository.findById(id);
     }
-    public Optional<Audience> getById(int idAud){ return  audienceCRUDRepository.findById(idAud); }
-
-
-
-    public  List<Audience> getByCategoryId(int idCat){
-        return  audienceCRUDRepository.findByCapacityGreaterThanEqual(idCat);
-    }
-    public  List<Audience> getByDesc(String desc,int cap){
-        return audienceCRUDRepository.findByDescriptionContainsAndAndCapacityGreaterThan(desc, cap);
-    }
+    public Audience save(Audience a){ return audienceCRUDRepository.save(a); }
+    public void delete(Audience a){ audienceCRUDRepository.delete(a);}
 }

@@ -13,19 +13,26 @@ import java.util.Optional;
 @RequestMapping("/api/Client")
 public class ClientController {
     @Autowired
-    private ClientService categoryService;
+    private ClientService clientService;
 
     @GetMapping("/all")
     public List<Client> getAll(){
-        return categoryService.getAll();
+        return clientService.getAll();
+    }
+    @GetMapping("/{id}")
+    public Optional<Client> getById(@PathVariable("id") int id){
+        return clientService.getById(id);
     }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Client save(@RequestBody Client c){
-        return categoryService.save(c);
+        return clientService.save(c);
     }
-    @GetMapping("/{id}")
-    public Optional<Client> getById(@PathVariable("id") int i){
-        return categoryService.getById(i);
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public  Client update(@RequestBody Client c){ return clientService.update(c);}
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") int id){
+        return clientService.delete(id);
     }
 }

@@ -9,23 +9,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-
 public class MessageRespository {
-
     @Autowired
     private MessageCrudRespository messageCrudRespository;
 
     public List<Message> getAll(){
         return (List<Message>) messageCrudRespository.findAll();
     }
-
-    public Message save(Message c){
-        return messageCrudRespository.save(c);
+    public Optional<Message> getById( int id){
+        return messageCrudRespository.findById(id);
     }
-
-    public Optional<Message> getById( int idMes){
-        return messageCrudRespository.findById(idMes);
+    public Message save(Message m){
+        return messageCrudRespository.save(m);
     }
-
-
+    public void delete(Message m){ messageCrudRespository.delete(m);}
 }

@@ -19,28 +19,20 @@ public class MessageController {
     public List<Message> getAll(){
         return messageService.getAll();
     }
+    @GetMapping("/{id}")
+    public Optional<Message> getById(@PathVariable("id") int idCat){
+        return messageService.getById(idCat);
+    }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Message save(@RequestBody Message c){
         return messageService.save(c);
     }
-    @GetMapping("/{id}")
-    public Optional<Message> getById(@PathVariable("id") int idMessage){
-        return messageService.getById(idMessage);
-    }
-
-
-    /*@GetMapping("/cat/{idCat}")
-    public List<Message> getByCatId(@PathVariable("idCat") int idCategory){
-        return messageService.getByCat(idCategory);
-    }
-    @GetMapping("/desc/{desc}/{cap}")
-    public List<Message> getByDesc(@PathVariable("cap") int cap, @PathVariable("desc") String descp){
-        return messageService.getByDescAndCap(descp,cap);
-    }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Message update(@RequestBody Message a){
-        return messageService.update(a);
-    }*/
+    public  Message update(@RequestBody Message c){ return messageService.update(c);}
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") int id){
+        return messageService.delete(id);
+    }
 }

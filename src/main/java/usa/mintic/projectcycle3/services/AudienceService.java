@@ -10,55 +10,37 @@ import java.util.Optional;
 
 @Service
 public class AudienceService {
+
     @Autowired
     private AudienceRepository audienceRepository;
 
     public List<Audience> getAll(){
         return audienceRepository.getAll();
     }
-    public Audience save(Audience c){
-        if(c.getId()==null){
-            return audienceRepository.save(c);
-        }else{
-            Optional<Audience> pa=audienceRepository.getById(c.getId());
-            if(!pa.isPresent()){
-                return audienceRepository.save(c);
-            }
-        }
-        return c;
-    }
     public Optional<Audience> getById(int id){
         return audienceRepository.getById(id);
     }
-    public List<Audience> getByCat(int id){
-        return audienceRepository.getByCategoryId(id);
+    public Audience save(Audience c){
+        if(c.getId()==null){ return audienceRepository.save(c); }
+        return c;
     }
-    public List<Audience>getByDescAndCap(String d,int c){
-        return audienceRepository.getByDesc(d, c);
+    public boolean delete(int id){
+        Optional<Audience> cOp=audienceRepository.getById(id);
+        if(cOp.isPresent()){ audienceRepository.delete(cOp.get()); return true; }
+        return false;
     }
-    public Audience update(Audience a){
-        if(a.getId()!=null){
-            Optional<Audience> pa=audienceRepository.getById(a.getId());
-            if(pa.isPresent()){
-                Audience result=pa.get();
-                if(a.getCapacity()!=null){
-                    result.setCapacity(a.getCapacity());
-                }
-                if(a.getCategory()!=null){
-                    result.setCategory(a.getCategory());
-                }
-                if(a.getDescription()!=null){
-                    result.setDescription(a.getDescription());
-                }
-                if(a.getName()!=null){
-                    result.setName(a.getName());
-                }
-                if(a.getOwner()!=null){
-                    result.setOwner(a.getOwner());
-                }
-                return audienceRepository.save(result);
+    public Audience update(Audience c){
+        if(c.getId()!=null){
+            Optional<Audience> old=audienceRepository.getById(c.getId());
+            if(old.isPresent()){
+                Audience k= old.get();
+                if(c.getName()!=null){ k.setName(c.getName()); }
+                if(c.getOwner()!=null){ k.setOwner(c.getOwner()); }
+                if(c.getCapacity()!=null){ k.setCapacity(c.getCapacity()); }
+                if(c.getDescription()!=null){ k.setDescription(c.getDescription()); }
+                return audienceRepository.save(k);
             }
         }
-        return a;
+        return c;
     }
 }
