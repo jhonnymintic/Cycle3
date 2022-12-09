@@ -89,4 +89,7 @@ public class Audience {
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
+
+// esto es un ejemplo
+
 }
